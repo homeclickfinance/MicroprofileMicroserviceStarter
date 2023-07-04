@@ -1,0 +1,30 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 8, 2023, 7:28:51 PM
+    Author     : homec
+*/
+
+.hoste1{
+text-align: center;
+border-bottom: solid #006400;
+color: #00ffff ;
+margin: 0 405px;
+font-size: 25px;
+margin-bottom: 100px;
+margin-top: 100px;
+border-radius: 50%; /* This is use to get a round socialmedia */
+}
+
+.hostes{
+text-align: center;
+border-bottom: solid pink;
+color: #00f ;
+margin: 0 405px;
+font-size: 25px;
+margin-bottom: 50px;
+margin-top: 50px;
+border-radius: 50%; /* This is use to get a round socialmedia */
+}

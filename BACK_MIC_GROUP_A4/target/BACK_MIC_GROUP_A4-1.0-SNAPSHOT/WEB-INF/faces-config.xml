@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd"
+    version="3.0">
+    <!-- Put any faces config here. -->
+    
+    <!--
+    <navigation-rule>
+            <from-view-id>/index.xhtml</from-view-id>
+            <navigation-case>
+                <from-action>#{LoginForm.login}</from-action>
+                <from-outcome>success</from-outcome>
+                <to-view-id>/storefront.xhtml</to-view-id>
+            </navigation-case>
+             
+            <navigation-case>
+                <from-action>#{LoginForm.logon}</from-action>
+                <from-outcome>failure</from-outcome>
+                <to-view-id>/logon.xhtml</to-view-id>
+            </navigation-case>
+   </navigation-rule>
+    
+   <lifecycle>
+        <phase-listener>
+            beans.lifecycle.DebuggerListener
+        </phase-listener>
+   </lifecycle>
+   
+   <application>
+        <locale-config>
+            <default-locale>es</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>mensajes</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+        <message-bundle>jsf</message-bundle>
+    </application> 
+   -->
+       
+
+</faces-config> 
