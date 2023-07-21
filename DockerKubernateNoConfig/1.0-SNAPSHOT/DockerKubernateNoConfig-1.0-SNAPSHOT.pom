@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mycompany</groupId>
+    <artifactId>DockerKubernateNoConfig</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>DockerKubernateNoConfig</name>
+
+   <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <version.javaee>9.0</version.javaee>
+        <version.payara.micro>5.2022.3</version.payara.micro>
+        <version.payara>5.2022.3</version.payara>
+        
+        <microprofile.version>5.0</microprofile.version>
+        
+        
+        <artifactId>jkube-maven-sample-zero-config</artifactId>
+        <groupId>org.eclipse.jkube</groupId>
+        <version>1.13.1</version>
+        <packaging>jar</packaging>
+       
+        
+        <!-- con use this to be do different stuff on the docker closter mvn k8s: build-k8s: resource -k8s: log  k8s: debug    -->
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            
+                <dependency>
+                <groupId>jakarta.enterprise</groupId>
+                <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                <version>4.0.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.ejb</groupId>
+                        <artifactId>jakarta.ejb-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jakarta.el</groupId>
+                        <artifactId>jakarta.el-api</artifactId>
+                    </exclusion>
+                </exclusions>
+        </dependency>    
+            
+        <!-- Jakarta Platfrom  -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>9.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+   
+        </dependencies>
+    </dependencyManagement>
+    
+    <dependencies>
+        
+        <!-- Jakarta Platfrom  -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>    
+        </dependency>
+                       
+ 
+    </dependencies>
+
+     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <compilerArguments>
+                        <endorseddirs>${endorsed.dir}</endorseddirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            
+            <!-- con use this to be do different stuff on the docker closter mvn k8s: build-k8s: resource -k8s: log  k8s: debug    -->
+             
+            <!-- ================================================================================== --> 
+            <!--https://www.eclipse.org/jkube/docs/kubernetes-maven-plugin/ -->
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>kubernetes-maven-plugin</artifactId>
+                <version>1.31.1</version>
+            </plugin>
+            <!-- ================================================================================== -->
+    
+               
+            <!-- con use this to be do different stuff on the docker closter mvn k8s: build-k8s: resource -k8s: log  k8s: debug    -->
+            
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <payaraVersion>${version.payara}</payaraVersion>
+                    <artifactItem>
+                        <groupId>fish.payara.extras</groupId>
+                        <artifactId>payara-micro</artifactId>
+                        <version>${version.payara.micro}</version>
+                    </artifactItem>
+                    <commandLineOptions>
+                        <option>
+                            <key>--autoBindHttp</key>
+                            <value>true</value>
+                        </option>
+                        <option>
+                            <key>--deploy</key>
+                            <value>${project.build.directory}/${project.build.finalName}</value>
+                        </option>
+                    </commandLineOptions>
+                    <deployWar>false</deployWar>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

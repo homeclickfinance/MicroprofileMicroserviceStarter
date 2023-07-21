@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 21 20:50:34 CEST 2023
+DockerVKubernate-1.0-SNAPSHOT.war>=
+DockerVKubernate-1.0-SNAPSHOT-kubernetes.yml>=
+DockerVKubernate-1.0-SNAPSHOT-helm.tar.gz>=
+DockerVKubernate-1.0-SNAPSHOT.pom>=

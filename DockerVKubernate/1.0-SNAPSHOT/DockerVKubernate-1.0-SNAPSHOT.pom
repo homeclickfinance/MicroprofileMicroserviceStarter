@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mycompany</groupId>
+    <artifactId>DockerVKubernate</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>DockerVKubernate</name>
+    
+
+    
+
+   <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <version.javaee>9.0</version.javaee>
+        <version.payara.micro>5.2022.3</version.payara.micro>
+        <version.payara>5.2022.3</version.payara>
+        
+        
+        <microprofile.version>5.0</microprofile.version>
+        
+        <mockito-core.version>4.8.0</mockito-core.version>
+        <junit-jupiter.version>5.9.1</junit-jupiter.version>
+        
+        <!-- con use this to be do different stuff on the docker closter mvn k8s: build-k8s: resource -k8s: log  k8s: debug    -->
+        <!-- <jkube.enricher.jkube-service.type>NodePort</jkube.enricher.jkube-service.type>  -->
+        <!-- <jkube.version>${project.version}</jkube.version> -->
+       
+       <jkube.enricher.jkube-service.type>NodePort</jkube.enricher.jkube-service.type>  
+       <groupId>org.eclipse.jkube.quickstarts.maven</groupId>
+       <groupId>org.eclipse.jkube</groupId>
+       <version>1.13.1</version>
+       <packaging>jar</packaging> 
+       
+        
+        <!-- con use this to be do different stuff on the docker closter mvn k8s: build-k8s: resource -k8s: log  k8s: debug    -->
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            
+                <dependency>
+                <groupId>jakarta.enterprise</groupId>
+                <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                <version>4.0.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.ejb</groupId>
+                        <artifactId>jakarta.ejb-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jakarta.el</groupId>
+                        <artifactId>jakarta.el-api</artifactId>
+                    </exclusion>
+                </exclusions>
+        </dependency>    
+            
+        <!-- Jakarta Platfrom  -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>9.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jkube/kubernetes-maven-plugin-doc 
+        <dependency>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>kubernetes-maven-plugin</artifactId>
+            <version>1.10.1</version>
+            <type>pom</type>
+        </dependency>
+        -->
+   
+   
+        </dependencies>
+    </dependencyManagement>
+    
+    <dependencies>
+        
+        <!-- Jakarta Platfrom  -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>    
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+  
+        <!-- ... -->
+        
+        
+        <dependency>
+            <groupId>io.dekorate</groupId>
+            <artifactId>option-annotations</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>io.dekorate</groupId>
+            <artifactId>openshift-annotations</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        
+        <dependency>
+          <groupId>io.dekorate</groupId>
+          <artifactId>kubernetes-annotations</artifactId>
+         <version>1.0.3</version>
+        </dependency>
+        
+        <dependency>
+          <groupId>io.dekorate</groupId>
+          <artifactId>dekorate-spring-boot</artifactId>
+          <version>1.0.3</version>
+        </dependency>                  
+        
+        
+    </dependencies>
+
+     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <compilerArguments>
+                        <endorseddirs>${endorsed.dir}</endorseddirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            
+            <!-- con use this to be do different stuff on the docker closter mvn k8s: build-k8s: resource -k8s: log  k8s: debug    -->
+             
+            <!-- ================================================================================== --> 
+            <!--https://www.eclipse.org/jkube/docs/kubernetes-maven-plugin/ -->
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>kubernetes-maven-plugin</artifactId>
+                <version>1.13.1</version>
+                <!-- ... -->
+                
+                <executions>
+                  <execution>
+                    <goals>
+                      <goal>resource</goal>
+                      <goal>build</goal> 
+                    </goals>
+                  </execution>
+                </executions>
+                   
+            </plugin>
+            <!-- ================================================================================== -->
+             
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.0</version>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            
+            <plugin>
+                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>2.0</version>
+            </plugin>
+               
+            
+               
+            <!-- con use this to be do different stuff on the docker closter mvn k8s: build-k8s: resource -k8s: log  k8s: debug    -->
+            
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <payaraVersion>${version.payara}</payaraVersion>
+                    <artifactItem>
+                        <groupId>fish.payara.extras</groupId>
+                        <artifactId>payara-micro</artifactId>
+                        <version>${version.payara.micro}</version>
+                    </artifactItem>
+                    <commandLineOptions>
+                        <option>
+                            <key>--autoBindHttp</key>
+                            <value>true</value>
+                        </option>
+                        <option>
+                            <key>--deploy</key>
+                            <value>${project.build.directory}/${project.build.finalName}</value>
+                        </option>
+                    </commandLineOptions>
+                    <deployWar>false</deployWar>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
