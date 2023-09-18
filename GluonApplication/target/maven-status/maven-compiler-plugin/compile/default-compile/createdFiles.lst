@@ -1,0 +1,4 @@
+com\gluonapplication\views\PrimaryPresenter.class
+com\gluonapplication\views\SecondaryPresenter.class
+com\gluonapplication\views\AppViewManager.class
+com\gluonapplication\GluonApplication.class
